@@ -1,0 +1,81 @@
+<div class="animated fadeIn">
+    <div class="cob-header">
+        <div class="page-title">
+            <span>Products</span>
+        </div>
+        <div class="btn-container">
+            <app-add-edit-product-modal [mode]="'new'" (added)="handleEdited($event)" ></app-add-edit-product-modal>
+        </div>
+        <div class="btn-container">
+            <button
+                class="btn btn-primary"
+                (click)="handleExport()"
+                translate>Export</button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <app-cbo-filter-selector
+                      [model]="filterModel"
+                    ></app-cbo-filter-selector>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="data-table datatable-scroll">
+            <table id="data-table">
+                <thead class="sticky-table-header">
+                    <th>
+                        Product Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Storage Area
+                    </th>
+                    <th>
+                        Uom
+                    </th>
+                    <th>
+                        Price Uom
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of products;">
+                        <td>{{row.productId}}</td>
+                        <td>{{row.displayName}}</td>
+                        <td>{{row.category}}</td>
+                        <td>{{row.area}}</td>
+                        <td>{{row.uom}}</td>
+                        <td>{{row.priceUom}}</td>
+                        <td>
+                            <div class="col-md-12 buttons-container">
+                                <button type="button" class="btn btn-primary blue" (click)="openListModal(row)" *ngIf="!row.shoppingListId">Add to List</button>  
+                                <button
+                                    *ngIf="row.shoppingListId"
+                                    class="btn btn-primary"
+                                    (click)="handleOnRemoveClick(row)"
+                                    translate
+                                >
+                                    Remove
+                                </button>
+                                <app-add-edit-product-modal [mode]="'edit'" [product]="row.productId" (added)="handleEdited($event)" ></app-add-edit-product-modal>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    

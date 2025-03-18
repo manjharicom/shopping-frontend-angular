@@ -1,0 +1,33 @@
+<div class="animated fadeIn">
+    <div class="col-md-12">
+        <div class="cob-header">
+            <div class="page-title">
+                <span translate>View Menu</span>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-form-label" for="name">
+                        <span class="col-md-2">Menu Name</span>
+                        <span class="col-md-2">{{menuName}}</span>
+                    </label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="cookingInstructions">
+                            <span>Ingredients</span>
+                    </label>
+                    <div class="data-table datatable-scroll">
+                        <table>
+                            <tbody>
+                                <tr *ngFor="let ingredient of ingredients">
+                                    <td>{{ingredient.name}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

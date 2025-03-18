@@ -1,0 +1,150 @@
+<div class="animated fadeIn">
+    <div class="cob-header">
+        <div class="page-title">
+            <span>Shopping List Prices</span>
+        </div>
+        <div class="btn-container">
+            <button
+            class="btn btn-primary"
+            (click)="submit()"
+            translate>Submit</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <app-cbo-filter-selector
+                      [model]="filterModel"
+                    ></app-cbo-filter-selector>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12" *ngIf="prices && prices.length > 0">
+    <form class="form-horizontal" (ngSubmit)="submit()" [formGroup]="shoppingListForm">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="datatable-scroll">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Shopping Date:</td>
+                                    <td>
+                                        <div class="col-md-8">
+                                            <input
+                                            type="text" 
+                                            placeholder="Datepicker"
+                                            bsDatepicker
+                                            [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD', useUtc:false }"
+                                            (bsValueChange)="showDate($event)"
+                                            #box
+                                            class="form-control"
+                                            formControlName="shoppingDate"
+                                            />
+                                        </div>                
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="data-table datatable-scroll" formArrayName="prices">
+            <table id="data-table">
+                <thead class="sticky-table-header">
+                    <th>
+                        Product
+                    </th>
+                    <th>
+                        Quantity
+                    </th>
+                    <th>
+                        Price Uom
+                    </th>
+                    <th>
+                        Price per Uom
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                </thead>
+                <tbody>
+                    <tr [formGroupName]="i" *ngFor="let control of prices.controls; let i = index;">
+                        <td>
+                            <input 
+                            type="hidden" 
+                            id="productId{{i}}"
+                            name="productId{{i}}"
+                            readonly
+                            class="form-control"
+                            formControlName="productId"
+                            />
+                            {{getControlValue(control,'name')}}
+                        </td>
+                        <td>
+                            <div class="col-md-t">
+                                <input 
+                                type="number"
+                                [step]="getStep(control)"
+                                id="quantity{{i}}"
+                                name="quantity{{i}}"
+                                #box
+                                class="form-control"
+                                formControlName="quantity"
+                                />
+                            </div>
+                        </td>
+                        <td>
+                            {{getControlValue(control,'priceUom')}}
+                        </td>
+                        <td>
+                            <div class="col-md-7">
+                                <input 
+                                type="number" 
+                                step="0.01"
+                                #box
+                                id="price{{i}}"
+                                name="price{{i}}"
+                                class="form-control"
+                                formControlName="price"
+                                />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-md-7">
+                                <input 
+                                type="number" 
+                                step="0.01"
+                                #box
+                                id="total{{i}}"
+                                name="total{{i}}"
+                                class="form-control"
+                                formControlName="total"
+                                />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="col-md-12 buttons-container">
+                                <button
+                                    class="btn btn-primary"
+                                    (click)="onRemoveBtnClick(control)"
+                                    translate
+                                >
+                                    Remove
+                                </button>
+                          </div>
+                        </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>

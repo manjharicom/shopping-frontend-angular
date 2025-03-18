@@ -1,0 +1,51 @@
+<div class="animated fadeIn">
+    <div class="cob-header">
+        <div class="page-title">
+            <span>Units of Measure</span>
+          </div>
+          <div class="btn-container">
+            <button
+                class="btn btn-primary"
+                (click)="onAdd()"
+                translate>Add</button>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="data-table datatable-scroll">
+            <table id="data-table">
+                <thead class="sticky-table-header">
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Allow Decimal Quantity
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of uoms;">
+                        <td>{{row.uomId}}</td>
+                        <td>{{row.name}}</td>
+                        <td>{{row.allowDecimalQuantity}}</td>
+                        <td>
+                            <div class="col-md-12 buttons-container">
+                                <button
+                                    class="btn btn-primary blue"
+                                    (click)="onEdit(row)"
+                                    translate
+                                >
+                                    Edit
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="animated fadeIn">
+    <div class="modal-header">
+        <h3 class="title">Add Product to Recipe {{name}}</h3>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">  
+            <span aria-hidden="true">×</span>  
+        </button>      
+    </div>
+    <div class="modal-body">
+        <div class="col-sm-12">
+            <app-cbo-filter-selector
+                [model]="filterModel"
+            ></app-cbo-filter-selector>
+        </div>
+    </div>
+    <div class="modal-content" *ngIf="recipes && recipes.length > 0">
+        <div class="data-table datatable-scroll">
+            <table>
+                <thead>
+                    <th>Recipe</th>
+                    <th>Options</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of recipes">
+                        <td>{{row.name}}</td>
+                        <td>
+                            <div class="col-md-12 buttons-container">
+                                <button
+                                    class="btn btn-primary blue"
+                                    (click)="submit(row.recipeId)"
+                                >
+                                    Add
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" (click)="modalRef.hide()" translate>Close</button>
+    </div>
+</div>

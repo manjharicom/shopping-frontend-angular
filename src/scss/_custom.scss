@@ -1,0 +1,437 @@
+// Here you can add other styles
+.card {
+    border: none;
+  }
+  .form-control {
+    padding: 12px;
+    height: auto;
+    //font-weight: bold;
+    border-color: #aaaaaa;
+  }
+  .btn {
+    font-size: 12px;
+    padding: 4px 10px;
+    margin-left: 15px;
+    min-width: 80px;
+    &.cap {
+      text-transform: uppercase;
+    }
+  }
+  .btn-primary {
+    background-color: $secondary-color;
+    border-color: $secondary-color;
+    &.blue {
+      background-color: $primary-color;
+      border-color: $primary-color;
+    }
+  }
+  
+  .primary-color {
+    color: $primary-color;
+  }
+  
+  .secondary-color {
+    color: $secondary-color;
+  }
+  
+  .btn-default {
+    background-color: white;
+    &.border {
+      border: 1px solid #aaaaaa;
+    }
+  }
+  .cob-header {
+    clear: both;
+    overflow: auto;
+    .page-title {
+      float: left;
+      color: white;
+      font-size: 22px;
+      padding-bottom: 10px;
+    }
+    .btn-container {
+      float: right;
+    }
+  }
+  
+  .required-field {
+    &::after {
+      content: " *";
+      color: #b40303;
+    }
+  }
+  
+  .app-footer {
+    background-color: $primary-color;
+    color: white;
+    margin-top: 20px;
+    a {
+      color: white;
+    }
+    .footer-links {
+      width: 100%;
+      text-align: center;
+      > div {
+        display: inline-block;
+        display: -moz-inline-box;
+        *display: inline; /* For IE7 */
+        zoom: 1; /* Trigger hasLayout */
+        padding: 0 20px;
+        text-align: center;
+      }
+    }
+  }
+  .main .container-fluid {
+    margin-top: -80px;
+  }
+  
+  .sidebar {
+    background-color: white;
+    color: $primary-font-color;
+  
+    .nav-link {
+      color: $primary-font-color;
+      background-color: white;
+  
+      &.active {
+        background-color: darken(white, 10);
+        color: $primary-font-color;
+      }
+  
+      &:hover {
+        &.nav-dropdown-toggle::before {
+          background-image: $sidebar-nav-dropdown-indicator;
+        }
+        .nav-icon {
+          color: $primary-font-color;
+        }
+      }
+      .menu-text-align {
+        margin-left: 20px;
+      }
+    }
+    $mouse-over-color: #20a8d8;
+    .nav-link:hover,
+    .nav-dropdown.open .nav-link:hover {
+      color: white;
+      background: $mouse-over-color;
+    }
+    .nav-dropdown {
+      &.open {
+        .nav-link,
+        > .nav-dropdown-items {
+          background-color: white;
+          color: $primary-font-color;
+          &.active {
+            background-color: #e6e6e6;
+          }
+        }
+      }
+    }
+  }
+  .breadcrumb {
+    background-color: $primary-color;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0 0 0 0;
+    border-bottom: none;
+    ol {
+      margin: 0 0 0 0;
+    }
+  }
+  .top-filler-overlap {
+    background-color: $primary-color;
+    height: 90px;
+    width: 100%;
+  }
+  .header-fixed {
+    .app-header {
+      border-bottom: none;
+      background-color: white;
+      h3 {
+        color: $primary-color;
+      }
+  
+      .nav-item .nav-link {
+        font-size: 14px;
+      }
+      .navbar-brand {
+        width: 200px;
+        background-color: white;
+        transition: margin-left 0.25s, margin-right 0.25s, width 0.25s, flex 0.25s;
+      }
+    }
+  }
+  .transition {
+    transition: margin-left 0.25s, margin-right 0.25s, width 0.25s, flex 0.25s;
+  }
+  .sidebar-lg-show.sidebar-fixed.header-fixed {
+    .d-md-down-none {
+      display: block;
+    }
+  
+    .app-header .navbar-brand {
+      position: relative;
+      left: auto;
+      top: auto;
+      margin-left: 0px;
+      width: 200px;
+      background-color: transparent;
+    }
+  }
+  
+  .sidebar-fixed.header-fixed {
+    .d-md-down-none {
+      display: none;
+    }
+    .app-header .navbar-brand {
+      position: absolute;
+      margin-left: 50px;
+      width: auto;
+      background-color: transparent;
+      .d-md-down-none {
+        display: none;
+      }
+    }
+  }
+  
+  .sidebar-fixed .cbo-header .title {
+    display: none;
+  }
+  .sidebar-lg-show.sidebar-fixed .cbo-header .title {
+    display: block;
+  }
+  
+  .sidebar {
+    box-shadow: 2px 10px 5px rgba(0, 0, 0, 0.3);
+    .nav-bottom-version {
+      text-align: center;
+      padding-bottom: 15px;
+      font-size: 11px;
+    }
+  }
+  
+  @media (max-width: 991.98px) {
+    .sidebar-lg-show.sidebar-fixed .cbo-header .title {
+      display: none;
+    }
+    .header-fixed .app-header .navbar-brand {
+      position: absolute;
+      left: auto;
+      top: auto;
+      margin-left: 50px;
+      width: auto;
+      background-color: transparent;
+    }
+    .sidebar-lg-show.sidebar-fixed.header-fixed .app-header .navbar-brand {
+      width: auto;
+    }
+  }
+  .navbar-toggler:focus {
+    outline: none;
+  }
+  /* Custom checkbox */
+  /* The container */
+  .checkbox-wrapper {
+    .label {
+      margin-left: 20px;
+    }
+    .checkbox-container {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 14px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    /* Hide the browser's default checkbox */
+    .checkbox-container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+  
+    .checkbox-container.disabled {
+      color: #cbcbcb;
+      pointer-events: none;
+    }
+    /* Create a custom checkbox */
+    .checkmark {
+      margin-top: 3px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 15px;
+      width: 15px;
+      border-radius: 2px;
+      background-color: white;
+      border: 2px solid #666;
+    }
+    /* On mouse-over, add a grey background color */
+    .checkbox-container:hover input ~ .checkmark {
+      background-color: #ccc;
+    }
+    /* When the checkbox is checked, add a blue background */
+    .checkbox-container input:checked ~ .checkmark {
+      background-color: white;
+    }
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    /* Show the checkmark when checked */
+    .checkbox-container input:checked ~ .checkmark:after {
+      display: block;
+    }
+    /* Style the checkmark/indicator */
+    .checkbox-container .checkmark:after {
+      left: 3px;
+      top: 0px;
+      width: 5px;
+      height: 9px;
+      border: solid #666;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  }
+  
+  .btn.btn-icon-align {
+    position: relative;
+    padding-left: 20px;
+    i {
+      position: absolute;
+      top: 30%;
+      left: 6px;
+    }
+  }
+  
+  .data-table {
+    border-radius: 4px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 0px;
+    width: 100%;
+    table {
+      width: 100%;
+      border-spacing: 0;
+      border-collapse: separate;
+      td,
+      th {
+        padding: 6px;
+        text-align: left;
+        vertical-align: text-top;
+        border: solid #ccc;
+        border-width: 0 1px 1px 0;
+        &:last-child {
+          border-right: none;
+        }
+        position: relative;
+        i {
+          position: absolute;
+          right: 8px;
+          top: 10px;
+        }
+        &.clickable {
+          cursor: pointer;
+          padding-right: 20px;
+        }
+      }
+      tr:last-child {
+        td {
+          border-bottom: none;
+        }
+      }
+    }
+    .loader {
+      margin: 10px auto;
+      width: 35px;
+    }
+    &.collapsible {
+      tr.closed {
+        // color: orange;
+        display: none;
+      }
+    }
+  }
+  .search-result-header {
+    font-size: 12px;
+    h4 {
+      margin-bottom: 0;
+    }
+    padding-bottom: 10px;
+  }
+  
+  .tooltip-inner {
+    max-width: 900px;
+  }
+  table.tooltop-table {
+    display: inline;
+    th,
+    tr,
+    td {
+      border: none;
+      padding: 2px;
+      white-space: nowrap;
+    }
+  }
+  .app-header .dropdown-item:hover {
+    background-color: #20a8d8;
+    color: white;
+  }
+  
+  button:disabled {
+    cursor: not-allowed;
+  }
+  
+  a:disabled {
+    cursor: not-allowed;
+    color: gray;
+  }
+  
+  .section-header {
+    color: $primary-color;
+    border-bottom: 3px solid $secondary-color;
+    font-size: 18px;
+  }
+  
+  .multiselect-dropdown {
+    .dropdown-btn {
+      padding: 11px 12px !important;
+    }
+  }
+  
+  .modal-body .ok-cancel-warning {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #8abd46;
+    -webkit-border-radius: 40px;
+    border-radius: 50%;
+    margin: 20px auto;
+    padding: 0;
+    position: relative;
+    box-sizing: content-box;
+    animation: pulsate infinite 2s;
+  }
+  
+  .modal-body .ok-cancel-warning div {
+    color: #10064b;
+    font-size: 2em;
+    text-align: center;
+  }
+  
+  .border-danger {
+    .dropdown-btn {
+      border-color: #f86c6b !important;
+    }
+  }
+  
+  .sp-pagination {
+    width: 100%;
+  }
+  

@@ -1,0 +1,11 @@
+<a
+  class="nav-link {{linkType}} child"
+  id="{{item.id}}"
+  [ngClass]="{'nav-dropdown-toggle ': item.children, 'active' :item.active}"
+  [routerLink]="url"
+  *ngIf="(isChangeLangShow() || linkType !== 'disabled')"
+  (click)="goToLink(url)"
+>
+  <i [ngClass]="item.icon"> </i>
+  <div class="menu-text-align">{{item.name}}</div>
+</a>

@@ -1,0 +1,54 @@
+<div class="product-modal col-md-12">
+    <div class="product-modal-body">
+        <h3 class="title">Add Product to Shopping List</h3>
+        <form 
+        class="form-horizontal"
+        (ngSubmit)="submit()"
+        [formGroup]="productForm">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label" for="superMarket">
+                            <span translate>Product</span>
+                        </label>
+                        <div class="col-md-4">
+                            <input
+                            type="text"
+                            readonly
+                            id="name"
+                            name="name"
+                            class="form-control"
+                            value="{{name}}"
+                           />
+                          </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-4 col-form-label" for="superMarket">
+                            <span translate>Shopping List</span>
+                        </label>
+                        <div class="col-md-4">
+                            <select class="form-control"
+                                      id="superMarket"
+                                      name="superMarket"
+                                      formControlName="shoppingList"
+                                      [ngClass]="{'is-invalid': (shoppingList?.touched || 
+                                      shoppingList?.dirty) && 
+                                       !shoppingList?.valid }"
+                                                >
+                                    <option *ngFor="let cat of shoppingLists" [value]="cat.shoppingListId">{{cat.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <button 
+                            type="submit"
+                            class="btn btn-primary blue">
+                            Add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <ng-content></ng-content>
+    </div>
+</div>

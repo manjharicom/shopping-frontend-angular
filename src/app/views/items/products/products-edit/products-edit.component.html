@@ -1,0 +1,132 @@
+<div class="animated fadeIn">
+    <form
+      class="form-horizontal"
+      (ngSubmit)="submit()"
+      [formGroup]="productForm"
+    >
+      <div class="col-md-12">
+        <div class="cob-header">
+          <div class="page-title">
+            <span *ngIf="mode==='new'" translate>Add New Product</span>
+            <span *ngIf="mode==='edit'" translate>Update Product</span>
+          </div>
+          <div class="btn-container">
+            <button
+              type="reset"
+              class="btn cap btn-default"
+              id="btn-cancel"
+              routerLink="/items/products"
+            >
+              <span translate>Cancel</span>
+            </button>
+            <button
+              type="submit"
+              class="btn cap btn-primary btn-icon-align"
+              id="btn-save"
+            >
+              <i class="fa fa-check-circle-o"></i> <span translate>Save</span>
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label" for="productName">
+                <span translate>Product Name</span>
+              </label>
+              <div class="col-md-4">
+                <input
+                  type="text"
+                  id="productName"
+                  name="productName"
+                  class="form-control"
+                  placeholder="Product Name (required)"
+                  formControlName="productName"
+                  [ngClass]="{'is-invalid': (productName?.touched || 
+                                             productName?.dirty) && 
+                                             !productName?.valid }"
+                 />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label" for="category">
+                <span translate>Category</span>
+              </label>
+              <div class="col-md-4">
+                <select class="form-control"
+                        id="category"
+                        name="category"
+                        formControlName="category"
+                        [ngClass]="{'is-invalid': (productForm.get('category')?.touched || 
+                                                   category?.dirty) && 
+                                                  !category?.valid }"
+                            >
+                        <option *ngFor="let cat of categories" [value]="cat.categoryId">{{cat.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label" for="area">
+                <span translate>Storage Area</span>
+              </label>
+              <div class="col-md-4">
+                <select class="form-control"
+                        id="area"
+                        name="area"
+                        formControlName="area"
+                        [ngClass]="{'is-invalid': (area?.touched || 
+                                                area?.dirty) && 
+                                                !area?.valid }"
+                        >
+                        <option *ngFor="let area of areas" [value]="area.areaId">{{area.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label" for="uom">
+                <span translate>Uom</span>
+              </label>
+              <div class="col-md-4">
+                <select class="form-control"
+                        id="uom"
+                        name="uom"
+                        formControlName="uom"
+                        [ngClass]="{'is-invalid': (uom?.touched || 
+                                                uom?.dirty) && 
+                                                !uom?.valid }"
+                        >
+                        <option *ngFor="let uom of uoms" [value]="uom.uomId">{{uom.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label" for="priceUom">
+                <span translate>Price Uom</span>
+              </label>
+              <div class="col-md-4">
+                <select class="form-control"
+                        id="priceUom"
+                        name="priceUom"
+                        formControlName="priceUom"
+                        [ngClass]="{'is-invalid': (priceUom?.touched || 
+                                                  priceUom?.dirty) && 
+                                                  !priceUom?.valid }"
+                        >
+                        <option *ngFor="let uom of uoms" [value]="uom.uomId">{{uom.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-8">
+                <div class="alert alert-danger" *ngIf="productName?.touched && productName?.errors?.['required']">Product Name is Required</div>
+                <div class="alert alert-danger" *ngIf="category?.touched && category?.errors?.['required']">Category is Required</div>
+                <div class="alert alert-danger" *ngIf="area?.touched && area?.errors?.['required']">Storage Area is Required</div>
+                <div class="alert alert-danger" *ngIf="uom?.touched && uom?.errors?.['required']">Uom is Required</div>
+                <div class="alert alert-danger" *ngIf="priceUom?.touched && priceUom?.errors?.['required']">PriceU om is Required</div>
+              </div>
+            </div>
+        </div>
+      </div>
+      </div>
+    </form>
+  </div>

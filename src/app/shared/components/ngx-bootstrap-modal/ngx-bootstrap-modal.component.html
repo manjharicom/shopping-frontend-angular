@@ -1,0 +1,94 @@
+  <div class="modal-header">  
+    <h3 class="title">Add Product to Shopping List</h3>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">  
+      <span aria-hidden="true">×</span>  
+    </button>  
+  </div>
+  <div class="modal-body">  
+    <h3 class="title">{{product?.name}}</h3>  
+    <form
+    class="form-horizontal"
+    (ngSubmit)="submit()"
+    [formGroup]="productForm">
+      <div class="card">
+        <div class="card-body">
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label" for="name">
+                    <span translate>Product</span>
+                </label>
+                <div class="col-md-4">
+                    <input
+                    type="text"
+                    readonly
+                    id="name"
+                    name="name"
+                    class="form-control"
+                    value="{{product?.name}}"
+                  />
+                  </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 col-form-label" for="shoppingList">
+                    <span translate>Shopping List</span>
+                </label>
+                <div class="col-md-4" *ngIf="shoppingLists && shoppingLists.length > 0">
+                    <select class="form-control"
+                              id="shoppingList"
+                              name="shoppingList"
+                              formControlName="shoppingList"
+                              [ngClass]="{'is-invalid': (shoppingList?.touched || 
+                              shoppingList?.dirty) && 
+                              !shoppingList?.valid }"
+                              (change)="onChange(shoppingList?.value)"
+                                        >
+                            <option *ngFor="let item of shoppingLists" 
+                              [value]="item.shoppingListId">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label" for="quantity">
+                <span translate>Quantity</span>
+              </label>
+              <div class="col-md-4">
+                <input
+                  id="quantity"
+                  name="quantity"
+                  type="number" 
+                  formControlName="quantity"
+                  #box
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-4 col-form-label" for="purchased">
+                <span translate>Purchased</span>
+              </label>
+              <div class="col-md-4">
+                <input
+                  id="purchased"
+                  name="purchased"
+                  type="checkbox"
+                  formControlName="purchased"
+                  #box
+                  class="form-control"
+                />
+              </div>
+            </div>
+            <div class="form-group row">
+                <button 
+                    type="submit"
+                    class="btn btn-primary blue">
+                    Add
+                </button>
+            </div>
+        </div>
+    </div>
+
+    </form>
+  </div>  
+  <div class="modal-footer">
+    <span *ngIf="errorMessages" class="text-danger">{{errorMessages}}</span>
+    <button type="button" class="btn btn-primary" (click)="modalRef.hide()">Close</button>  
+  </div>  

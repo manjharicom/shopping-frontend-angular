@@ -1,0 +1,337 @@
+<div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <form
+          class="form-horizontal"
+          #f="ngForm"
+          (ngSubmit)="submit()"
+          novalidate
+        >
+          <div class="row">
+            <div
+              *ngFor="let filter of model.filters"
+              [ngClass]="{
+                disabled: filter.disableWatcher && checkDisableStatus(filter),
+                hide:
+                  (filter.visibleWatcher && checkHideStatus(filter)) ||
+                  filter.hide,
+                'filter-container': filter.type !== FilterPageType.Group
+              }"
+              class="{{ filter.cssClass }}"
+            >
+              <div
+                class="group-container {{ filter.groupFilters.cssClass }}"
+                *ngIf="
+                  filter.type === FilterPageType.Group &&
+                  filter.groupFilters &&
+                  filter.groupFilters.filters &&
+                  filter.groupFilters.filters.length > 0
+                "
+              >
+                <div
+                  class="filter-container"
+                  ng-if="filter.groupFilters && filter.groupFilters.filters"
+                  *ngFor="let groupFilter of filter.groupFilters.filters"
+                  [ngClass]="{
+                    disabled:
+                      groupFilter.disableWatcher &&
+                      checkDisableStatus(groupFilter),
+                    hide:
+                      (filter.visibleWatcher && checkHideStatus(groupFilter)) ||
+                      groupFilter.hide
+                  }"
+                >
+                  <div
+                    class="cbo-dropdown"
+                    *ngIf="filter.type === FilterPageType.SelectList"
+                  >
+                    <div class="label-overlay">
+                      <label>{{ groupFilter.label }}</label>
+                    </div>
+                    <select
+                      class="form-control"
+                      id="{{ groupFilter.name }}"
+                      name="{{ groupFilter.name }}"
+                      (change)="emitChange(filter.name)"
+                      [disabled]="
+                        filter.disableWatcher ? checkDisableStatus(filter) : false
+                      "
+                      [(ngModel)]="filter.value"
+                    >
+                      <option
+                        *ngFor="let i of filter.listArray"
+                        value="{{ i.Value }}"
+                        selected=i.Selected
+                      >
+                        {{ i.Name }}
+                      </option>
+                    </select>
+                  </div>
+                  <div
+                    class="cbo-dropdown"
+                    *ngIf="groupFilter.type === FilterPageType.Text"
+                  >
+                    <div class="label-overlay">
+                      <label>{{ groupFilter.label }}</label>
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="{{ groupFilter.name }}"
+                      name="{{ groupFilter.name }}"
+                      [(ngModel)]="groupFilter.value"
+                    />
+                  </div>
+                  <div
+                    class="cbo-dropdown"
+                    *ngIf="groupFilter.type === FilterPageType.DatePicker"
+                  >
+                    <div class="label-overlay">
+                      <label>{{ groupFilter.label }}</label>
+                    </div>
+  
+                    <input
+                      type="text"
+                      id="{{ groupFilter.name }}"
+                      name="{{ groupFilter.name }}"
+                      placeholder="{{ groupFilter.label }}"
+                      class="form-control"
+                      [bsConfig]="dpConfig"
+                      autocomplete="off"
+                      bsDatepicker
+                      [(ngModel)]="groupFilter.value"
+                      (bsValueChange)="
+                        onDateValueChange($event, groupFilter.name)
+                      "
+                    />
+                    <div
+                      class="{{ groupFilter.message.cssClass }}"
+                      *ngIf="
+                        groupFilter.message &&
+                        groupFilter.message.show &&
+                        !groupFilter.message.isGroupMessage
+                      "
+                    >
+                      {{ groupFilter.message.text }}
+                    </div>
+                  </div>
+                  <div
+                    class="cbo-checkmark"
+                    *ngIf="groupFilter.type === FilterPageType.Checkbox"
+                  >
+                    <div class="checkbox-wrapper">
+                      <label class="checkbox-container">
+                        <input
+                          name=""
+                          type="checkbox"
+                          id="{{ groupFilter.name }}"
+                          name="{{ groupFilter.name }}"
+                          [(ngModel)]="groupFilter.value"
+                          (change)="emitChange(groupFilter.name)"
+                        />
+                        <span class="checkmark"></span>
+                      </label>
+                      <div class="label">
+                        <span>{{ groupFilter.label }}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="cbo-dropdown"
+                    *ngIf="groupFilter.type === FilterPageType.Empty"
+                  >
+                    <div class="label-overlay"></div>
+                  </div>
+                  <div class="info-text">
+                    <span translate>{{ groupFilter.infoText }}</span>
+                  </div>
+                </div>
+                <div
+                  class="{{ filter.message.cssClass }}"
+                  *ngIf="filter.message && filter.message.show"
+                >
+                  {{ filter.message.text }}
+                </div>
+              </div>
+  
+              <div
+                class="cbo-dropdown"
+                *ngIf="filter.type === FilterPageType.SelectList && !filter.hide"
+              >
+                <div class="label-overlay">
+                  <label>{{ filter.label }}</label>
+                </div>
+                <select
+                  class="form-control"
+                  id="{{ filter.name }}"
+                  name="{{ filter.name }}"
+                  (change)="emitChange(filter.name)"
+                  [disabled]="
+                    filter.disableWatcher ? checkDisableStatus(filter) : false
+                  "
+                  [(ngModel)]="filter.value"
+                >
+                  <option
+                    *ngFor="let i of filter.listArray"
+                    value="{{ i.Value }}"
+                    selected=i.Selected
+                    >{{ i.Name }}</option
+                  >
+                </select>
+              </div>
+              <div
+                class="cbo-dropdown"
+                *ngIf="filter.type === FilterPageType.MultiSelectList"
+                detectClickOutside
+                (clickedOutside)="closeDropdown(filter)"
+              >
+                <div class="label-overlay">
+                  <label>{{ filter.label }}</label>
+                </div>
+                <div class="multi-select" tabindex="1">
+                  <div
+                    class="form-control"
+                    [id]="filter.name"
+                    (click)="multiSelectOnClick(filter)"
+                  >
+                    <div
+                      class="selected-container"
+                      *ngIf="
+                        selectedOptions(filter).length > 0;
+                        else defaultValue
+                      "
+                    >
+                      <span
+                        *ngFor="let selectedOption of selectedOptions(filter)"
+                      >
+                        {{ selectedOption.Name }}
+                      </span>
+                      <span *ngIf="howManyMoreToShow(filter) > 0"
+                        >+ {{ howManyMoreToShow(filter) }}</span
+                      >
+                    </div>
+                    <ng-template #defaultValue>
+                      {{ filter.value }}
+                    </ng-template>
+                    <i class="fas fa-chevron-down"></i>
+                  </div>
+                  <ul [hidden]="!filter.showMultiOptions">
+                    <div
+                      class="select-all border-bottom d-flex justify-content-between"
+                      (click)="selectOrUnSelectAll(filter)"
+                    >
+                      {{ selectAllText }}
+                      <input
+                        class="form-control"
+                        type="checkbox"
+                        name="selectAll"
+                        value="selectedAll"
+                        [(ngModel)]="selectedAll"
+                      />
+                    </div>
+                    <li
+                      class="mutilOption"
+                      *ngFor="let i of filter.listArray"
+                      (click)="onOptionClick(i, filter)"
+                      translate
+                    >
+                      {{ i.Name }}
+                      <i class="fas fa-check" *ngIf="i.Selected"></i>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="cbo-dropdown"
+                *ngIf="filter.type === FilterPageType.Text"
+              >
+                <div class="label-overlay">
+                  <label>{{ filter.label }}</label>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="{{ filter.name }}"
+                  name="{{ filter.name }}"
+                  [(ngModel)]="filter.value"
+                />
+              </div>
+              <div
+                class="cbo-dropdown"
+                *ngIf="filter.type === FilterPageType.DatePicker"
+              >
+                <div class="label-overlay">
+                  <label>{{ filter.label }}</label>
+                </div>
+  
+                <input
+                  type="text"
+                  id="{{ filter.name }}"
+                  name="{{ filter.name }}"
+                  placeholder="{{ filter.label }}"
+                  class="form-control"
+                  [bsConfig]="dpConfig"
+                  autocomplete="off"
+                  bsDatepicker
+                  [(ngModel)]="filter.value"
+                  (bsValueChange)="onDateValueChange($event, filter.name)"
+                />
+                <div
+                  class="{{ filter.message.cssClass }}"
+                  *ngIf="filter.message && filter.message.show"
+                >
+                  {{ filter.message.text }}
+                </div>
+              </div>
+              <div
+                class="cbo-checkmark"
+                *ngIf="filter.type === FilterPageType.Checkbox"
+              >
+                <div class="checkbox-wrapper">
+                  <label class="checkbox-container">
+                    <input
+                      name=""
+                      type="checkbox"
+                      id="{{ filter.name }}"
+                      name="{{ filter.name }}"
+                      [(ngModel)]="filter.value"
+                      (change)="emitChange(filter.name)"
+                    />
+                    <span class="checkmark"></span>
+                  </label>
+                  <div class="label">
+                    <span>{{ filter.label }}</span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="cbo-dropdown"
+                *ngIf="filter.type === FilterPageType.Empty"
+              >
+                <div class="label-overlay"></div>
+              </div>
+              <div class="info-text">
+                <span translate>{{ filter.infoText }}</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="pull-right">
+              <button
+                class="btn"
+                (click)="btn.function()"
+                [disabled]="btn.disabled"
+                type="button"
+                id="btn-{{ btn.name }}-{{ i }}"
+                [ngClass]="btn.cssClasses"
+                *ngFor="let btn of model.buttons; let i = index"
+              >
+                {{ btn.label }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

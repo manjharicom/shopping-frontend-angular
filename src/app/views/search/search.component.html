@@ -1,0 +1,54 @@
+<div class="animated fadeIn">
+    <div class="cob-header">
+        <div class="page-title">
+            <span>Search</span>
+        </div>
+        <div class="btn-container">
+            <app-add-edit-product-modal [mode]="'new'" (added)="handleEdited($event)" ></app-add-edit-product-modal>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <app-cbo-filter-selector
+                      [model]="filterModel"
+                    ></app-cbo-filter-selector>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="data-table datatable-scroll">
+        <table id="data-table">
+            <thead class="sticky-table-header">
+                <th>
+                    Product Name
+                </th>
+                <th>
+                    Options
+                </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of products;">
+                    <td>{{row.displayName}}</td>
+                    <td>
+                        <div class="col-md-12 buttons-container">
+                            <button
+                                class="btn btn-primary"
+                                *ngIf="row.shoppingListId"
+                                (click)="onRemoveBtnClick(row.productId, row.shoppingListId)"
+                                translate
+                            >
+                            Remove
+                            </button>
+                            <button type="button" class="btn btn-primary blue" (click)="openListModal(row)" *ngIf="!row.shoppingListId">Add to List</button>  
+                            <app-add-edit-product-modal [mode]="'edit'" [product]="row.productId" (added)="handleEdited($event)" ></app-add-edit-product-modal>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

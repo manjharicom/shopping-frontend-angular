@@ -1,0 +1,72 @@
+<div class="animated fadeIn">
+    <div class="cob-header">
+        <div class="page-title">
+            <span>Storage Areas</span>
+        </div>
+        <div class="btn-container">
+            <button
+                class="btn btn-primary"
+                (click)="handleAdd()"
+                translate>Add</button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <app-cbo-filter-selector
+                      [model]="filterModel"
+                    ></app-cbo-filter-selector>
+                    <app-list-container
+                    [listItems]="listItems"
+                    [showStopBtn] = "false"
+                    [isLoading]="isLoading"
+                    [getStatusClassFn]="getStatusIndicator"
+                    (onAddClick)="handleOnAddClick($event)"
+                    (onRemoveClick)="handleOnRemoveClick($event)"
+                    (onAddProductClick)="handleOnAddBtnClick($event)"
+                  ></app-list-container>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="data-table datatable-scroll">
+            <table id="data-table">
+                <thead class="sticky-table-header">
+                    <th>
+                        Area Id
+                    </th>
+                    <th>
+                        Category Name
+                    </th>
+                    <th>
+                        Has Products
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of areasWithProducts;">
+                        <td>{{row.areaId}}</td>
+                        <td>{{row.name}}</td>
+                        <td>{{row.hasProducts}}</td>
+                        <td>
+                            <div class="col-md-12 buttons-container" *ngIf="row.isShipped === false">
+                                <button
+                                class="btn btn-primary blue"
+                                (click)="handleEdit(row)"
+                                translate
+                              >
+                                Edit
+                              </button>
+                          </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

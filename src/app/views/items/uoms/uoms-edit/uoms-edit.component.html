@@ -1,0 +1,75 @@
+<div class="animated fadeIn">
+    <form
+        class="form-horizontal"
+        (ngSubmit)="submit()"
+        [formGroup]="form"
+    >
+    <div class="col-md-12">
+        <div class="cob-header">
+            <div class="page-title">
+              <span *ngIf="mode==='new'" translate>Add New Uom</span>
+              <span *ngIf="mode==='edit'" translate>Update Uom</span>
+            </div>
+            <div class="btn-container">
+              <button
+                type="reset"
+                class="btn cap btn-default"
+                id="btn-cancel"
+                routerLink="/items/uoms"
+              >
+                <span translate>Cancel</span>
+              </button>
+              <button
+                type="submit"
+                class="btn cap btn-primary btn-icon-align"
+                id="btn-save"
+              >
+                <i class="fa fa-check-circle-o"></i> <span translate>Save</span>
+              </button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="name">
+                      <span translate>Uom Name</span>
+                    </label>
+                    <div class="col-md-4">
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        class="form-control"
+                        placeholder="Uom Name (required)"
+                        formControlName="name"
+                        maxlength="50"
+                        [ngClass]="{'is-invalid': (name?.touched || 
+                                                  name?.dirty) && 
+                                                   !name?.valid }"
+                       />
+                    </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-4 col-form-label" for="name">
+                    <span translate>Allow Decimal Quantity</span>
+                  </label>
+                  <div class="col-md-4">
+                    <input
+                      type="checkbox"
+                      id="allowDecimalQuantity"
+                      name="allowDecimalQuantity"
+                      class="form-control"
+                      placeholder="Allow Decimal Quantity(required)"
+                      formControlName="allowDecimalQuantity"
+                      maxlength="50"
+                      [ngClass]="{'is-invalid': (allowDecimalQuantity?.touched || 
+                                                allowDecimalQuantity?.dirty) && 
+                                                 !allowDecimalQuantity?.valid }"
+                     />
+                  </div>
+              </div>
+          </div>
+        </div>
+    </div>
+    </form>
+</div>

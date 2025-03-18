@@ -1,0 +1,61 @@
+<div *ngIf="!isLoading && listItems && listItems.length > 0; else no_data">
+    <div class="row">
+      <div class="col-md-3 primary-color">
+        <h5 *ngIf="listTitle">{{ listTitle }}</h5>
+      </div>
+      <div class="col-md-3 primary-color"></div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3"></div>
+    </div>
+  
+    <div class="list-container">
+      <ng-container *ngIf="!isLoading">
+        <div class="row" *ngFor="let item of listItems">
+          <!-- Item Header -->
+          <div
+            class="list-row-header"
+            
+            [ngClass]="{
+              'no-subItems': item.SubItems === null || item.SubItems.length <= 0
+            }"
+          >
+            <div class="col-md-4">{{ item.Name }}</div>
+          </div>
+  
+          <!-- SubItems -->
+          <div
+            *ngIf="item.SubItems && item.SubItems.length > 0"
+            class="col-md-12 hide-subItem"
+            [ngClass]="{ 'show-subItem': item.isSubItemExpanded }"
+          >
+            <div
+              *ngFor="let subItem of item.SubItems; index"
+              class="row list-row"
+            >
+              <div class="col-md-1"></div>
+              <div class="col-md-3" translate>
+                {{ subItem.name }}
+              </div>
+              <div class="col-md-3 buttons-container">
+                <button type="button" class="btn btn-primary blue" (click)="openListModal(subItem)" *ngIf="showViewBtn === true && !subItem.shoppingListId">Add to List</button>  
+                <button
+                  *ngIf="showViewBtn === true && subItem.shoppingListId"
+                  class="btn btn-primary"
+                  (click)="onRemoveBtnClick(subItem)"
+                  translate
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <ng-template #no_data>
+    <div class="col-md-12 sp-px-2">
+      <ngx-skeleton-loader *ngIf="isLoading" count="5"></ngx-skeleton-loader>
+      <span *ngIf="!isLoading" translate>No categories to display</span>
+    </div>
+  </ng-template>

@@ -1,0 +1,35 @@
+$bsd-background-color: $primary-color;
+.theme-bidone {
+  .bs-datepicker-body table td {
+    &.selected span,
+    &[class*="select-"] span:after {
+      background-color: $bsd-background-color;
+    }
+
+    span {
+      &.selected,
+      &[class*="select-"]:after {
+        background-color: $bsd-background-color;
+      }
+    }
+  }
+
+  .bs-datepicker-head,
+  .bs-datepicker-predefined-btns button.selected {
+    background-color: $bsd-background-color;
+  }
+
+  .bs-datepicker-body table td {
+    &.week span {
+      color: $bsd-background-color;
+    }
+
+    &.active-week span:hover {
+      cursor: pointer;
+      background-color: $bsd-background-color;
+      color: #fff;
+      opacity: 0.5;
+      transition: 0s;
+    }
+  }
+}

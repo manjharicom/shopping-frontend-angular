@@ -1,0 +1,148 @@
+<div class="animated fadeIn">
+    <form 
+        class="form-horizontal"
+        (ngSubmit)="submit()"
+        [formGroup]="menuForm"
+    >
+        <div class="col-md-12">
+            <div class="cob-header">
+                <div class="page-title">
+                    <span *ngIf="mode==='new'" translate>Add New Menu</span>
+                    <span *ngIf="mode==='edit'" translate>Update Menu</span>
+                </div>
+                <div class="btn-container">
+                    <button
+                    type="reset"
+                    class="btn cap btn-default"
+                    id="btn-cancel"
+                    routerLink="/menu-planner/menus"
+                  >
+                    <span translate>Cancel</span>
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn cap btn-primary btn-icon-align"
+                    id="btn-save"
+                  >
+                    <i class="fa fa-check-circle-o"></i> <span translate>Save</span>
+                  </button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label" for="name">
+                            <span>Menu Name</span>
+                        </label>
+                        <div class="col-md-10">
+                            <input
+                              type="text"
+                              id="name"
+                              name="name"
+                              class="form-control"
+                              placeholder="Menu Name (required)"
+                              formControlName="name"
+                              [ngClass]="{'is-invalid': (name?.touched || 
+                              name?.dirty) && !name?.valid }"
+                             />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label" for="cookingInstructions">
+                                <span>Cooking Instructions</span>
+                        </label>
+                        <div class="col-md-10">
+                                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [colorPresets]="colorPresets"></ngx-editor-menu>
+                                <ngx-editor 
+                                    id="cookingInstructions"
+                                    name="cookingInstructions"
+                                    [editor]="editor"
+                                    formControlName="cookingInstructions"></ngx-editor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </form>
+    <div class="col-md-12" *ngIf="mode==='edit'">
+        <div class="cob-header">
+            <div class="page-title2">
+                Products List
+            </div>
+            <div class="btn-container">
+                <button
+                    class="btn btn-primary"
+                    id="btn-add"
+                    (click) = "openModal()"
+                    ><span translate>Add Product</span>
+                </button>
+            </div>
+        </div>
+        <div class="data-table datatable-scroll" *ngIf="products && products.length > 0">
+            <table id="data-table">
+                <thead>
+                    <th>Product</th>
+                    <th>Measurement</th>
+                    <th>Options</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of products; let i = index;">
+                        <td>
+                            <input 
+                            type="hidden" 
+                            id="productId{{i}}"
+                            name="productId{{i}}"
+                            readonly
+                            [value]="product.productId"
+                            />
+                            {{product.name}}
+                        </td>
+                        <td>
+                            {{product.measurement}}
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" (click)="removeProduct(product.productId)">
+                                Remove Product
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div><hr></div>
+        <div class="cob-header">
+            <div class="page-title2">
+                Recipes List
+            </div>
+            <div class="btn-container">
+                <button
+                    class="btn btn-primary"
+                    id="btn-add-recipe"
+                    (click) = "openRecipeModal()"
+                    ><span translate>Add Recipe</span>
+                </button>
+            </div>
+        </div>
+        <div class="data-table datatable-scroll" *ngIf="recipes && recipes.length > 0">
+            <table id="data-table">
+                <thead>
+                    <th>Recipe</th>
+                    <th>Options</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let recipe of recipes; let i = index;">
+                        <td>
+                            <a class="anchor" (click)="router.navigate(['menu-planner/recipes/edit/'+recipe.recipeId])">{{recipe.name}}</a>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" (click)="removeRecipe(recipe.recipeId)">
+                                Remove Recipe
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div><hr></div>
+    </div>
+</div>

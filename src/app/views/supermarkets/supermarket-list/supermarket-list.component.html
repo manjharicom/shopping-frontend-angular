@@ -1,0 +1,65 @@
+<div class="animated fadeIn">
+    <div class="cob-header">
+        <div class="page-title">
+            <span>Shops</span>
+          </div>
+          <div class="btn-container">
+            <button
+                class="btn btn-primary"
+                (click)="handleAdd()"
+                translate>Add</button>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <app-cbo-filter-selector
+                      [model]="filterModel"
+                    ></app-cbo-filter-selector>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="data-table datatable-scroll">
+            <table id="data-table">
+                <thead class="sticky-table-header">
+                    <th>
+                        Super Market Id
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Options
+                    </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of superMarkets;">
+                        <td>{{row.superMarketId}}</td>
+                        <td>{{row.name}}</td>
+                        <td>
+                            <div class="col-md-12 buttons-container">
+                                <button
+                                class="btn btn-primary blue"
+                                (click)="handleEdit(row)"
+                                translate
+                                >
+                                Edit
+                                </button>
+                                <button
+                                class="btn btn-primary blue"
+                                (click)="handleDelete(row.superMarketId)"
+                                translate
+                                >
+                                Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

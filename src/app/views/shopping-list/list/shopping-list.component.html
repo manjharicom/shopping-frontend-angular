@@ -1,0 +1,90 @@
+<div class="animated fadeIn">
+    <div class="cob-header">
+        <div class="page-title">
+            <span>Shopping List Items</span>
+        </div>
+        <div class="btn-container">
+            <button
+            class="btn btn-primary"
+            routerLink="/shopping-list/new"
+            translate>Create</button>
+        <button
+                class="btn btn-primary"
+                (click)="delete(2)"
+                translate>Delete</button>
+            <button
+                class="btn btn-primary"
+                (click)="trello()"
+                translate>Trello</button>
+                <button
+                class="btn btn-primary"
+                (click)="reconcile()"
+                translate>Reconcile List</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <app-cbo-filter-selector
+                      [model]="filterModel"
+                    ></app-cbo-filter-selector>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="data-table datatable-scroll">
+        <table id="data-table">
+            <thead class="sticky-table-header">
+                <th>
+                    Product Id
+                </th>
+                <th>
+                    Product Name
+                </th>
+                <th>
+                    Aisle
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Options
+                </th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of products;">
+                    <td>{{row.productId}}</td>
+                    <td>{{row.displayName}}</td>
+                    <td>{{row.aisleLabel}}</td>
+                    <td>
+                        <div class="col-md-5">
+                            <input 
+                            type="number" 
+                            #box
+                            class="form-control"
+                            value="{{row.quantity}}"
+                            (change)="onChange(row.productId, row.shoppingListId, box.value)"
+                            />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="col-md-12 buttons-container">
+                            <button
+                                class="btn btn-primary"
+                                (click)="onRemoveBtnClick(row.productId, row.shoppingListId)"
+                                translate
+                            >
+                                Remove
+                            </button>
+                            <app-add-edit-product-modal [mode]="'edit'" [product]="row.productId" (added)="handleEdited($event)" ></app-add-edit-product-modal>
+                      </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

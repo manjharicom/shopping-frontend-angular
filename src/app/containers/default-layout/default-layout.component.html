@@ -1,0 +1,53 @@
+<div class="cbo-header app-header">
+    <div class="title">
+      <h3><span translate>Shopping List Manager</span></h3>
+    </div>
+    <div class="toggle-button">
+      <button id="toggle-side-menu" (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="user">
+      <div class="btn-group" dropdown placement="bottom right">
+        <button
+          dropdownToggle
+          type="button"
+          class="btn btn-default dropdown-toggle"
+        >
+          <i class="fa fa-user"></i>John
+          <span class="caret"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="app-body visible-overflow-div">
+    <app-sidebar
+    class="sidebar"
+  >
+  </app-sidebar>
+
+    <!-- Main content -->
+    <main class="main">
+      <div class="top-filler-overlap"></div>
+  
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+      <!-- /.container-fluid -->
+    </main>
+  </div>
+  
+  <!-- Pop-up modal -->
+<div *ngIf="showModal" class="sp-modal">
+  <div class="sp-modal-body d-flex flex-column justify-content-between">
+    <div class="sp-modal-header pt-3">
+      <span>{{ modalTitle }}</span>
+    </div>
+    <div class="sp-modal-buttons d-flex justify-content-end">
+      <button class="btn btn-primary" (click)="onOk()">Ok</button>
+      <button class="btn btn-default border" (click)="onCancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="ps sidebar-nav">
+    <div class="nav">
+      <div
+        class="nav-item"
+        *ngFor="let navItem of navItems"
+        [ngClass]="{ 'nav-dropdown': hasChilren(navItem), open: navItem.open }"
+      >
+        <a
+          *ngIf="getLinkType(navItem) !== 'disabled' "
+          id="{{ navItem.id }}"
+          class="nav-link {{ getLinkType(navItem) }}"
+          [class.disabled]="navItem.disabled"
+          [routerLink]="hasChilren(navItem) ? null : navItem.url"
+          [ngClass]="{
+            'nav-dropdown-toggle': hasChilren(navItem),
+            active: navItem.active
+          }"
+          (click)="navItem.open = !navItem.open"
+        >
+          <i [ngClass]="navItem.icon"> </i>
+          <span>{{ navItem.name }}</span>
+        </a>
+        <div *ngIf="navItem.children" class="nav-dropdown-items">
+            <app-sidebar-nav-item
+            *ngFor="let child of navItem.children"
+            [item]="child"
+          >
+        </app-sidebar-nav-item>
+        </div>
+      </div>
+    </div>
+  </div>
+  

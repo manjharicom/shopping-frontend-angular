@@ -1,0 +1,113 @@
+<div class="animated fadeIn">
+    <form
+      class="form-horizontal"
+      (ngSubmit)="submit()"
+      [formGroup]="shoppingListForm"
+    >
+    <div class="col-md-12">
+        <div class="cob-header">
+            <div class="page-title">
+              <span *ngIf="mode==='new'" translate>Add New Shopping List</span>
+              <span *ngIf="mode==='edit'" translate>Update Shopping List</span>
+            </div>
+            <div class="btn-container">
+              <button
+                type="reset"
+                class="btn cap btn-default"
+                id="btn-cancel"
+                routerLink="/shopping-list/list"
+              >
+                <span translate>Cancel</span>
+              </button>
+              <button
+                type="submit"
+                class="btn cap btn-primary btn-icon-align"
+                id="btn-save"
+              >
+                <i class="fa fa-check-circle-o"></i> <span translate>Save</span>
+              </button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="name">
+                        <span translate>Shopping List Name</span>
+                    </label>
+                    <div class="col-md-4">
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          class="form-control"
+                          placeholder="Shopping List Name (required)"
+                          formControlName="name"
+                          [ngClass]="{'is-invalid': (name?.touched || 
+                                                    name?.dirty) && 
+                                                     !name?.valid }"
+                         />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="superMarket">
+                        <span translate>Shop</span>
+                    </label>
+                    <div class="col-md-4">
+                        <select class="form-control"
+                                  id="superMarket"
+                                  name="superMarket"
+                                  formControlName="superMarket"
+                                  [ngClass]="{'is-invalid': (superMarket?.touched || 
+                                                            superMarket?.dirty) && 
+                                                          !superMarket?.valid }"
+                                  (change)="onChange($event)"
+                                                          >
+                                <option *ngFor="let cat of superMarkets" [value]="cat.superMarketId">{{cat.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="board">
+                      <span translate>Trello Board</span>
+                    </label>
+                    <div class="col-md-4">
+                      <select class="form-control"
+                                id="board"
+                                name="board"
+                                formControlName="board"
+                                [ngClass]="{'is-invalid': (board?.touched || 
+                                                        board?.dirty) && 
+                                                        !board?.valid }"
+                                (change)="onChange($event)"
+                                                        >
+                              <option *ngFor="let cat of trelloboards" [value]="cat.id">{{cat.name}}</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="board">
+                      <span translate>Trello Checklists</span>
+                    </label>
+                    <div class="col-md-4">
+                      <select class="form-control"
+                                id="checklist"
+                                name="checklist"
+                                formControlName="checklist"
+                                [ngClass]="{'is-invalid': (checklist?.touched || 
+                                                        checklist?.dirty) && 
+                                                        !checklist?.valid }"
+                                                        >
+                              <option *ngFor="let cat of checklLists" [value]="cat.id">{{cat.name}}</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-8">
+                        <div class="alert alert-danger" *ngIf="name?.touched && name?.errors?.['required']">Shopping List Name is Required</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
